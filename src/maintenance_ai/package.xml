@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>maintenance_ai</name>
+  <version>1.0.0</version>
+  <description>AI health classification and anomaly detection for the maintenance robot.</description>
+  <maintainer email="teja@todo.todo">teja</maintainer>
+  <license>Apache-2.0</license>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>nav_msgs</depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>maintenance_robot</exec_depend>
+  <exec_depend>maintenance_monitor</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

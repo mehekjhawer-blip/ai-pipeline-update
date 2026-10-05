@@ -1,0 +1,8 @@
+# Python packages for the AI health pipeline (training, ROS node, dashboard).
+# numpy<2: ROS 2 Humble's compiled Python packages are built against NumPy 1.x.
+# scikit-learn is pinned because the saved model file is tied to the library version.
+numpy>=1.23,<2
+pandas>=2.0,<2.3
+scikit-learn>=1.5,<1.6
+joblib>=1.2
+matplotlib>=3.5      # optional: training plots in reports/

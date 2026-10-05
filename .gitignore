@@ -1,0 +1,38 @@
+# ROS 2 / colcon generated directories
+build/
+install/
+log/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# VS Code
+.vscode/
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Generated ROS graph files
+frames_*.gv
+frames_*.pdf
+
+# Backup URDF files
+*.backup
+*.backup_before_diffdrive_fix
+*.before_drive
+
+# AI pipeline outputs
+data/processed/
+.pytest_cache/
+# Trained model is tied to the scikit-learn version: each machine runs
+#   python3 -m maintenance_ai.train
+# (remove this line if you prefer to commit the 5 MB model)
+models/health_model.joblib

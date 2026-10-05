@@ -1,0 +1,139 @@
+{
+  "model_version": "1.0.0",
+  "trained_utc": "2026-10-04T19:04:47+00:00",
+  "libraries": {
+    "scikit-learn": "1.5.2",
+    "python": "3.12.3"
+  },
+  "training_data": {
+    "real_rows": 493,
+    "synthetic_rows": 238154,
+    "synthetic_sessions": {
+      "battery": 30,
+      "drag": 30,
+      "none": 70,
+      "overheat": 30,
+      "stuck_current": 20
+    }
+  },
+  "features": [
+    "linear_speed",
+    "angular_speed",
+    "motor_current",
+    "motor_temperature",
+    "battery_voltage",
+    "battery_soc",
+    "temp_above_ambient",
+    "speed_mean_5s",
+    "ang_mean_5s",
+    "current_mean_5s",
+    "current_std_5s",
+    "current_max_5s",
+    "temp_slope_cps",
+    "volt_slope_vps",
+    "cur_resid_5s",
+    "thermal_resid_cps",
+    "volt_resid_vps"
+  ],
+  "policy_thresholds": {
+    "overheating": {
+      "feature": "motor_temperature",
+      "dir": "hi",
+      "warn": 55.0,
+      "crit": 75.0
+    },
+    "overcurrent": {
+      "feature": "current_mean_5s",
+      "dir": "hi",
+      "warn": 10.0,
+      "crit": 13.0
+    },
+    "low_battery": {
+      "feature": "battery_soc",
+      "dir": "lo",
+      "warn": 30.0,
+      "crit": 15.0
+    },
+    "abnormal_heating": {
+      "feature": "thermal_resid_cps",
+      "dir": "hi",
+      "warn": 0.2,
+      "crit": 0.5
+    },
+    "mechanical_drag": {
+      "feature": "cur_resid_5s",
+      "dir": "hi",
+      "warn": 2.0,
+      "crit": 5.0
+    },
+    "battery_degradation": {
+      "feature": "volt_resid_vps",
+      "dir": "lo",
+      "warn": -0.01,
+      "crit": -0.03
+    }
+  },
+  "anomaly_threshold": -0.6270706021938139,
+  "metrics": {
+    "classifier_cv_macro_f1": 0.9987,
+    "classifier_confusion_matrix[NORMAL,WARNING,CRITICAL]": [
+      [
+        102901,
+        15,
+        0
+      ],
+      [
+        7,
+        21291,
+        102
+      ],
+      [
+        0,
+        6,
+        89538
+      ]
+    ],
+    "healthy_sessions_unseen": {
+      "rows": 15588,
+      "false_alarm_rate": 0.0034,
+      "missed_policy_events": 0.0,
+      "anomaly_detector_flag_rate_on_policy_normal_rows": 0.0041
+    },
+    "fault_sessions": {
+      "overheat": {
+        "fraction_of_fault_rows_flagged": 0.987,
+        "median_seconds_to_first_flag": 2.2,
+        "anomaly_detector_flag_rate": 0.987,
+        "unseen_in_training": false
+      },
+      "drag": {
+        "fraction_of_fault_rows_flagged": 0.981,
+        "median_seconds_to_first_flag": 3.8,
+        "anomaly_detector_flag_rate": 0.978,
+        "unseen_in_training": false
+      },
+      "battery": {
+        "fraction_of_fault_rows_flagged": 0.974,
+        "median_seconds_to_first_flag": 4.3,
+        "anomaly_detector_flag_rate": 0.713,
+        "unseen_in_training": false
+      },
+      "stuck_current": {
+        "fraction_of_fault_rows_flagged": 0.945,
+        "median_seconds_to_first_flag": 4.2,
+        "anomaly_detector_flag_rate": 0.941,
+        "unseen_in_training": true
+      }
+    },
+    "real_csv_check": {
+      "rows": 484,
+      "fraction_NORMAL": 1.0,
+      "anomaly_detector_flag_rate": 0.0
+    }
+  },
+  "caveats": [
+    "Labels come from the engineering thresholds in config.py, so classifier scores measure how well the model reproduces that policy, not real-world fault detection.",
+    "Faults are simulated; only ~100 s of real healthy driving was available.",
+    "Retrain after collecting more real runs or changing thresholds."
+  ]
+}
